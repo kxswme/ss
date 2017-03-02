@@ -4,44 +4,113 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8">
         <meta name="theme-color" content="#2932e1">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <title>我的科学上网kxsw</title>
+        <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <style>
         *{
 	margin: 0;
 	padding: 0;
-	font-family: "Microsoft YaHei",sans-serif;
-}
-html,body,.box{width: 100%;height: 100%;}
-    .box{height: 264px;text-align: center; position: absolute;top:50%;margin-top: -132px;} 
-	.box a{width: 90px;height: 22px;}
+	font-family: "Raleway", Helvetica, Arial, sans-serif;
+        font-size: 15px;
+    font-weight: 300;
+    line-height: 25px;
+    -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+    }
+    .ser_title{
+    margin: auto;
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;z-index: 9;left: 0;right: 0;
+    }
+    .ser_bottom{position: absolute;bottom: 0;height: 30px;left: 0;width: 100%;z-index: 9;}
+    html,body{width: 100%;height: 100%;}
+    .body{padding: 44px;}
+    .head{height: 44px;width:100%;position: absolute;top:0;left:0;}
+    .head a{height:44px;font-size: 12px;line-height: 44px;float: right;display: inline-block;text-decoration: none;margin-right: 20px;}
+    .head a:hover{height: 50px;font-weight: bold;text-decoration: none;}
+    .text{border: 0;width: 100px;overflow: hidden;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}
+    .box,.body{text-align: center;}
+    a, .link {
+    color: #1e88e5;
+    text-decoration: none;
+}.qrcode{width: 100%;padding: 22px;height: 100%;background-color: #fff;position: absolute;z-index:7;}
+    .ser{color: #616366;border-radius: 4px;height: 170px;margin: 3px;width: 170px;position: relative;border: 1px solid #e6e9eb;display: inline-block;}
         </style>
 	</head>
-    <body>
-        <div class="box">
-		<h1>科学上网，你我共享</h1>
-        
-<div>服务器地址：</div>
-<pre>
-香港阿里云：
-hk11.kxsw.ga
-hk14.kxsw.ga
+    <body onselectstart="return false;" unselectable="on"     >
+        <div class="head"><a href="we.html">联系我们</a></div>
+        <div class="body">
+            		<h1>科学上网，你我共享</h1>
+            <div class="box">
+            </div>
+         
+<script>
+if (!window.addEventListener) 
+document.getElementsByTagName('body')[0].innerHTML = '<h1 style="text-align:center;margin:50px">我们还未支持您使用的浏览器</h1>';
+</script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+        var nodes=[
+            ['美国弗吉尼亚','104.209.135.21',49444]
+            ,['美国爱荷华','40.122.42.212',10002]
+            ,['美国加利福尼亚','137.135.40.199',24986]
 
-加拿大cac:
-64.137.234.170
+            ,['美国纽约','159.203.140.6',443]
+            ,['新加坡','128.199.163.158',443]
 
-美国纽约：159.203.140.6
-新加坡：128.199.163.158
-</pre>
-<div>端口：443</div>
-<div>密码：freess.cf</div>
-<div>加密：aes-256-cfb</div>
-        
-        <div>
-            <a href="aks.html">樱花免费节点集合</a></div>
-            <div>加群密码：kxsw.me</div>
-            <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=10c737e16aa9ec3b27724538bdc9efac9a3c721d5136735f90a4f35d2bda08b4"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="我的科学上网官网" title="我的科学上网官网"></a>
-        </div>
+            ,['香港阿里云1M','hk11.kxsw.ga',443]
+            ,['香港阿里云1M','hk14.kxsw.ga',443]
+            ,['香港阿里云2M','47.52.16.227',443]
+
+            ,['加拿大','64.137.234.170',443]
+        ];
+ function add(n)
+ {
+     var html='<div class="ser"><div class="qrcode"></div><div class="ser_title">'+n[0]+'</div>';
+     html+='<div>地址：<input class="text" readonly="true" value="'+n[1]+'"/></div>';
+     html+='<div>端口：<input class="text" readonly="true" value="'+n[2]+'"/></div>';
+     html+='<div>密码：<input class="text" readonly="true"value="'+(n[3]||'kxsw.me')+'"/></div>';
+     html+='<div>加密：<input class="text" readonly="true" value="'+(n[4]||'aes-256-cfb')+'"/></div>';
+     html+='<div class="ser_bottom">文明科学上网</div>';
+     html+='</div>';
+     $('.box').append(html);
+ }nodes.map(function(n){add(n)})
+
+$(function(){
+    $('.ser').click(function(){
+        setqr(this,getss(this));
+
+    })
+})
+function getss(e)
+{
+var n=$(e).find("input"),ss=n[3].value+":"+n[2].value+"@"+n[0].value+":"+n[1].value;
+return "ss://"+window.btoa(unescape(encodeURIComponent(ss)));
+}
+function setqr(e,ss)
+{
+e=$(e).find('.qrcode');
+e.empty(); 
+e.qrcode({width:120,height:120,correctLevel:0,text:ss})
+}
+ function serm(ip)
+{
+    var html="",method='rc4-md5',passwd=$('#td_passwd').html(),port=$("#td_port").html(),
+pz={
+    "server": ip,
+    "server_port": port,
+    "password":passwd,
+    "method": method
+},txt=method+":"+passwd+"@"+ip+":"+port,
+    ssqr="ss://"+window.btoa(unescape(encodeURIComponent(txt)));
+    html+='<div><pre>'+JSON.stringify(pz).replace(/,/g,',\r\n\t').replace('{','{\r\n\t').replace('}','\r\n}')+'</pre></div>';
+    html+='<input readonly class="form-control" value="'+ssqr+'">';
+    html+='<br/><div align="center" id="_ssqrerm"></div>';
+    show('配置信息',html,hide)
+    setTimeout(function(){$('#_ssqrerm').qrcode(ssqr)},100);
+}    
+        </script>
+<script src="//cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     </body>
 </html>
