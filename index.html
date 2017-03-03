@@ -17,7 +17,7 @@
     line-height: 25px;
     -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
     }
-    .ser_title{
+    .ser_title{height: 25px;top: 0;
     margin: auto;
     font-size: 15px;
     font-weight: bold;
@@ -31,11 +31,13 @@
     .head a:hover{height: 50px;font-weight: bold;text-decoration: none;}
     .text{border: 0;width: 100px;overflow: hidden;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}
     .box,.body{text-align: center;}
+    .qr_img{
+     background:url(qr_img.png) no-repeat center center;background-size: contain;display: inline-block;position: absolute;right: 0;bottom: 0;width: 25px;height: 25px;}
     a, .link {
     color: #1e88e5;
     text-decoration: none;
-}.qrcode{width: 100%;padding: 22px;height: 100%;background-color: #fff;position: absolute;z-index:7;}
-    .ser{color: #616366;border-radius: 4px;height: 170px;margin: 3px;width: 170px;position: relative;border: 1px solid #e6e9eb;display: inline-block;}
+}.qrcode{width: 100%;display: none;border-radius: 4px;padding: 22px;height: 100%;background-color: #fff;position: absolute;top: 0;z-index:7;}
+    .ser{color: #616366;padding-top:25px ;border-radius: 4px;height: 170px;margin: 3px;width: 170px;position: relative;border: 1px solid #e6e9eb;display: inline-block;}
         </style>
 	</head>
     <body onselectstart="return false;" unselectable="on"     >
@@ -72,14 +74,15 @@ document.getElementsByTagName('body')[0].innerHTML = '<h1 style="text-align:cent
      html+='<div>端口：<input class="text" readonly="true" value="'+n[2]+'"/></div>';
      html+='<div>密码：<input class="text" readonly="true"value="'+(n[3]||'kxsw.me')+'"/></div>';
      html+='<div>加密：<input class="text" readonly="true" value="'+(n[4]||'aes-256-cfb')+'"/></div>';
-     html+='<div class="ser_bottom">文明科学上网</div>';
+     html+='<div class="ser_bottom">文明科学上网<span class="qr_img"></span></div>';
      html+='</div>';
      $('.box').append(html);
  }nodes.map(function(n){add(n)})
 
 $(function(){
-    $('.ser').click(function(){
-        setqr(this,getss(this));
+    $('.qr_img').click(function(){
+        var e=this.parentElement.parentElement;
+        setqr(e,getss(e));
 
     })
 })
@@ -93,23 +96,8 @@ function setqr(e,ss)
 e=$(e).find('.qrcode');
 e.empty(); 
 e.qrcode({width:120,height:120,correctLevel:0,text:ss})
-}
- function serm(ip)
-{
-    var html="",method='rc4-md5',passwd=$('#td_passwd').html(),port=$("#td_port").html(),
-pz={
-    "server": ip,
-    "server_port": port,
-    "password":passwd,
-    "method": method
-},txt=method+":"+passwd+"@"+ip+":"+port,
-    ssqr="ss://"+window.btoa(unescape(encodeURIComponent(txt)));
-    html+='<div><pre>'+JSON.stringify(pz).replace(/,/g,',\r\n\t').replace('{','{\r\n\t').replace('}','\r\n}')+'</pre></div>';
-    html+='<input readonly class="form-control" value="'+ssqr+'">';
-    html+='<br/><div align="center" id="_ssqrerm"></div>';
-    show('配置信息',html,hide)
-    setTimeout(function(){$('#_ssqrerm').qrcode(ssqr)},100);
-}    
+e.show();
+}   
         </script>
 <script src="//cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     </body>
